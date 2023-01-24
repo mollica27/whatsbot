@@ -17,14 +17,14 @@ const getStatus = async (msgfom) => {
     return false;
 }
 
-const getStatusOn = async (msgfom) => {
+const setStatusOn = async (msgfom) => {
     const connection = await createConnection();
     const [rows] = await connection.execute( 'SELECT status SET status = "on" WHERE usuario = ?', [msgfom]);
     if (rows.length > 0) return rows[0].status;
     return false;
 }
 
-const getStatusOff = async (msgfom) => {
+const setStatusOff = async (msgfom) => {
     const connection = await createConnection();
     const [rows] = await connection.execute( 'SELECT status SET status = "off" WHERE usuario = ?', [msgfom]);
     if (rows.length > 0) return rows[0].status;
@@ -38,3 +38,10 @@ const getUser = async (msgfom) => {
     return false;
 }
 // 17:01
+const setUser = async (msgfom) => {
+
+}
+
+const getReply = async (keyword) => {
+
+}
