@@ -1,6 +1,7 @@
 const mysql = require('mysql2/promise');
 const express = require('express')
 
+
 const createConnection = async () => {
     return await mysql.createConnection({
         host: 'localhost',
@@ -19,14 +20,14 @@ const getStatus = async (msgfom) => {
 
 const setStatusOn = async (msgfom) => {
     const connection = await createConnection();
-    const [rows] = await connection.execute( 'SELECT status SET status = "on" WHERE usuario = ?', [msgfom]);
+    const [rows] = await connection.execute( 'UPDATE status SET status = "on" WHERE usuario = ?', [msgfom]);
     if (rows.length > 0) return rows[0].status;
     return false;
 }
 
 const setStatusOff = async (msgfom) => {
     const connection = await createConnection();
-    const [rows] = await connection.execute( 'SELECT status SET status = "off" WHERE usuario = ?', [msgfom]);
+    const [rows] = await connection.execute( 'UPDATE status SET status = "off" WHERE usuario = ?', [msgfom]);
     if (rows.length > 0) return rows[0].status;
     return false;
 }
@@ -37,11 +38,27 @@ const getUser = async (msgfom) => {
     if (rows.length > 0) return true;
     return false;
 }
-// 17:01
-const setUser = async (msgfom) => {
 
+const setUser = async (msgfom) => {
+    const connection = await createConnection();
+    const [rows] = await connection.execute('INSERT INTO `status` (`id`, `status`, `usuario`) VALUES (NULL, "on", ?)', [msgfom]);
+    if (rows.length > 0) return rows[0].usuario;
+    return false;
 }
 
 const getReply = async (keyword) => {
+    const connection = await createConnection();
+    const [rows] = await connection.execute('SELECT resposta FROM chatbot WHERE pergunta = ?', [keyword]);
+    if (rows.length > 0) return rows[0].resposta;
+    return false;
+}
 
+module.exports = {
+    createConnection,
+    setUser,
+    getUser,
+    getReply,
+    getStatus,
+    setStatusOn,
+    setStatusOff
 }
