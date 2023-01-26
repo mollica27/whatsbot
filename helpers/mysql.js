@@ -7,7 +7,7 @@ const createConnection = async () => {
         host: 'localhost',
         user: 'root',
         password: '',
-        database: 'zdg'
+        database: 'whatsbot'
     });
 }
 

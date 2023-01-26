@@ -6,7 +6,7 @@ const db = require('./helpers/mysql.js');
 venom
   .create(
     //session
-    'Caragua', //Pass the name of the client you want to start the bot
+    'whatsbot4U', //Pass the name of the client you want to start the bot
     //catchQR
     (base64Qrimg, asciiQR, attempts, urlCode) => {
       console.log('Number of attempts to read the qrcode: ', attempts);
